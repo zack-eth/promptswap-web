@@ -1,0 +1,69 @@
+# Quick Start
+
+Get up and running in under a minute.
+
+## 1. Install and setup
+
+```bash
+npm install -g promptswap
+promptswap setup
+```
+
+## 2. Run your first prompt
+
+```bash
+use claude "explain what a monad is in simple terms"
+```
+
+This tries to use swap credits first (free). If you don't have credits yet, it falls back to a small paid charge ($0.05 default).
+
+## 3. Earn credits
+
+To get free swap credits, share your local LLM capacity:
+
+```bash
+promptswap earn ollama
+```
+
+This starts hosting your local Ollama model. Every time someone uses it, you earn swap credits. Leave it running in the background while you work.
+
+## 4. Use credits
+
+Now that you're earning credits, use them to access any model on the network:
+
+```bash
+use opus "write a haiku about recursion"
+use haiku "translate to French: hello world"
+```
+
+## Multi-turn conversations
+
+Promptswap remembers your conversation context (up to 10 turns):
+
+```bash
+use claude "explain closures"
+use claude "now show me an example in Python"
+use claude --new "start a completely new topic"
+```
+
+## Connect your tools
+
+Use promptswap with your favorite editor or tool:
+
+```bash
+promptswap connect cursor --local
+promptswap connect continue --local
+```
+
+See [Integrations](/docs/integrations/cursor) for all supported tools.
+
+## Run as a daemon
+
+Keep earning credits in the background:
+
+```bash
+promptswap start earn ollama
+promptswap logs              # check activity
+promptswap status            # check balance
+promptswap stop              # stop the daemon
+```

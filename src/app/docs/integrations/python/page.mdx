@@ -1,0 +1,61 @@
+# Python
+
+Use promptswap from Python via the OpenAI SDK.
+
+## With local proxy
+
+Start the proxy first:
+
+```bash
+promptswap proxy --local
+```
+
+Then in Python:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:8787/v1", api_key="local")
+r = client.chat.completions.create(
+    model="claude-sonnet",
+    messages=[{"role": "user", "content": "hello"}]
+)
+print(r.choices[0].message.content)
+```
+
+## With marketplace
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://netwirc.com/api/v1/chat",
+    api_key="your-token-here"
+)
+r = client.chat.completions.create(
+    model="claude-sonnet",
+    messages=[{"role": "user", "content": "hello"}]
+)
+print(r.choices[0].message.content)
+```
+
+Find your token at `~/.netwirc`.
+
+## Streaming
+
+```python
+stream = client.chat.completions.create(
+    model="claude-sonnet",
+    messages=[{"role": "user", "content": "explain recursion"}],
+    stream=True
+)
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="")
+```
+
+## Print setup instructions
+
+```bash
+promptswap connect python --local
+```

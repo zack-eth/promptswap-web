@@ -1,0 +1,63 @@
+# Setup
+
+Run the one-time setup to configure your account and integrations:
+
+```bash
+promptswap setup
+```
+
+## What setup does
+
+### 1. Account creation
+
+Setup checks for an existing token at `~/.netwirc`. If none is found, you can either:
+
+- **Register** — creates a new account with an auto-generated username (like `swift-fox-42`) and a random password
+- **Login** — sign in with existing credentials
+
+Your token is saved to `~/.netwirc` with secure file permissions.
+
+### 2. Claude Code skill
+
+Installs the `/use` skill so you can run prompts directly from Claude Code:
+
+```
+/use claude "explain this function"
+/use opus --seller alice "review this PR"
+```
+
+### 3. Rate-limit hook
+
+Installs a hook that automatically catches rate limit errors in Claude Code. When triggered, it saves your last prompt so you can retry it via promptswap.
+
+### 4. Shell aliases
+
+Adds convenient aliases to your shell profile:
+
+- `use` — shorthand for `promptswap use`
+- `earn` — shorthand for `promptswap earn`
+- `host` — shorthand for `promptswap host`
+
+## Configuration
+
+After setup, your config lives at `~/.promptswap/config.json`. View or change settings with:
+
+```bash
+# View all config
+promptswap config
+
+# View a specific key
+promptswap config server
+
+# Set a value
+promptswap config price_cents 10
+```
+
+### Default configuration
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `server` | `https://netwirc.com` | API server URL |
+| `tag` | `prompt` | Default model tag |
+| `price_cents` | `5` | Default price per prompt (in cents) |
+| `poll_interval_ms` | `3000` | Job polling interval |

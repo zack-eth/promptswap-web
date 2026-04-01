@@ -1,0 +1,46 @@
+# Cursor
+
+Connect Cursor to promptswap for AI-powered coding with swap credits.
+
+## Quick setup
+
+```bash
+promptswap connect cursor --local
+```
+
+This starts the local proxy and prints the configuration to add in Cursor.
+
+## Manual setup
+
+1. Start the proxy:
+
+```bash
+promptswap proxy --local
+```
+
+2. In Cursor, go to **Settings > Models > OpenAI-compatible** and add:
+
+| Field | Value |
+|-------|-------|
+| Base URL | `http://localhost:8787/v1` |
+| API Key | `local` |
+| Model | `claude-sonnet` |
+
+## Using the marketplace directly
+
+To skip the local proxy and use marketplace sellers directly:
+
+```bash
+promptswap connect cursor
+```
+
+This uses `https://netwirc.com/api/v1/chat` as the base URL and your API token as the key.
+
+## Available models
+
+Once connected, you can use these model names in Cursor:
+
+- `claude-sonnet` — Claude Sonnet
+- `claude-opus` — Claude Opus
+- `claude-haiku` — Claude Haiku
+- `prompt` — Ollama

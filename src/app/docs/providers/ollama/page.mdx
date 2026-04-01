@@ -1,0 +1,56 @@
+# Ollama
+
+Ollama is the default provider in promptswap. It runs locally on your machine with zero cost.
+
+## How it works
+
+When you use or earn with Ollama, promptswap:
+
+1. Automatically downloads Ollama to `~/.promptswap/ollama/` if not installed
+2. Starts a dedicated Ollama server on port 11435
+3. Pulls the default model (`qwen2.5:7b`) on first use
+4. Runs prompts locally — no network calls, no cost
+
+## Using Ollama
+
+```bash
+use ollama "explain closures in JavaScript"
+```
+
+Or start an interactive REPL:
+
+```bash
+use ollama
+```
+
+## Earning with Ollama
+
+Share your local Ollama capacity to earn swap credits:
+
+```bash
+promptswap earn ollama
+```
+
+This registers your machine as a seller on the marketplace. Other users send prompts to your Ollama instance, and you earn credits for each completed job.
+
+### Updating the model
+
+```bash
+promptswap earn ollama --update
+```
+
+This forces a model pull before starting, ensuring you have the latest version.
+
+## Configuration
+
+The default model is `qwen2.5:7b`. You can change it in your config:
+
+```bash
+promptswap config model llama3:8b
+```
+
+## Limitations
+
+- Prompt length is capped at 8,000 characters for safety
+- Performance depends on your hardware (GPU recommended for larger models)
+- The dedicated port (11435) avoids conflicts with other Ollama instances

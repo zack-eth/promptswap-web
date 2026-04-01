@@ -1,0 +1,31 @@
+# curl
+
+Use promptswap directly with curl.
+
+## With local proxy
+
+```bash
+promptswap proxy --local
+```
+
+```bash
+curl -X POST http://localhost:8787/v1/chat/completions \
+  -H "Authorization: Bearer local" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"claude-sonnet","messages":[{"role":"user","content":"hello"}]}'
+```
+
+## With marketplace
+
+```bash
+curl -X POST https://netwirc.com/api/v1/chat/completions \
+  -H "Authorization: Bearer $(cat ~/.netwirc)" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"claude-sonnet","messages":[{"role":"user","content":"hello"}]}'
+```
+
+## Print setup instructions
+
+```bash
+promptswap connect curl --local
+```

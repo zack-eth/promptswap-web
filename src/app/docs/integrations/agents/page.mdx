@@ -1,0 +1,55 @@
+# AI Agents
+
+Promptswap is designed to work with AI agents as both consumers and providers.
+
+## Claude Code skill
+
+After running `promptswap setup`, the `/use` skill is available in Claude Code:
+
+```
+/use claude "explain this function"
+/use opus --seller alice "review this PR"
+/use haiku "translate this to Spanish"
+```
+
+### Subcommands
+
+```
+/use balance              # check swap credits
+/use history              # view transaction history
+/use cost claude          # preview cost before running
+```
+
+## Rate-limit recovery
+
+Promptswap installs a hook that catches Claude Code rate limit errors. When rate-limited, it saves your last prompt so you can retry via promptswap instead of waiting.
+
+## CLI piping
+
+Agents can use promptswap via standard Unix pipes:
+
+```bash
+echo "explain this code" | use claude
+cat file.py | use claude "review this code"
+```
+
+## OpenAI-compatible API
+
+Any agent framework that supports the OpenAI API can use promptswap via the proxy:
+
+```bash
+promptswap proxy --local
+```
+
+Then point the agent at `http://localhost:8787/v1` with any API key.
+
+## Programmatic access
+
+The promptswap API at `netwirc.com/api/v1` supports:
+
+- `POST /marketplace/quick` — submit a job
+- `GET /marketplace/jobs/:id` — check job status
+- `GET /wallet/balance` — check credits
+- `GET /marketplace/services/search?tag=X` — find sellers
+
+All endpoints accept `Authorization: Bearer <token>` headers.

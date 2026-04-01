@@ -1,0 +1,33 @@
+# Continue
+
+Connect Continue to promptswap for AI-assisted coding.
+
+## Quick setup
+
+```bash
+promptswap connect continue --local
+```
+
+This automatically edits your `~/.continue/config.json` and starts the local proxy.
+
+## What gets configured
+
+The `connect` command adds a promptswap provider to your Continue config:
+
+```json
+{
+  "provider": "openai",
+  "title": "Claude Sonnet (promptswap)",
+  "apiBase": "http://localhost:8787/v1",
+  "apiKey": "local",
+  "model": "claude-sonnet"
+}
+```
+
+## Using the marketplace
+
+To connect directly to the marketplace without a local proxy:
+
+```bash
+promptswap connect continue
+```

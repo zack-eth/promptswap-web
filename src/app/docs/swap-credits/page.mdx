@@ -1,0 +1,62 @@
+# How Swap Credits Work
+
+Swap credits are the currency of the promptswap network. They let you use LLMs for free by contributing your own capacity.
+
+## The basics
+
+- **Earn credits** by selling your local LLM capacity (`promptswap earn ollama`)
+- **Spend credits** by running prompts (`use claude "your prompt"`)
+- **No money needed** — swapping is always tried first before paid fallback
+
+## How earning works
+
+When you run `promptswap earn ollama`, your machine becomes a seller on the network. Other users can send prompts to your Ollama instance, and you earn swap credits for each job you complete.
+
+The number of credits you earn depends on the model you're hosting. Hosting a more powerful model earns more credits per job.
+
+## How spending works
+
+When you run a prompt with `use claude "..."`, promptswap first attempts to use your swap credits. If you have enough credits, the prompt is fulfilled for free.
+
+If you don't have enough credits (or if swap fails), it falls back to a paid transaction at the configured price (default $0.05).
+
+### Forcing a mode
+
+```bash
+# Force swap only (fail if no credits)
+use claude --swap "your prompt"
+
+# Force paid only (skip swap)
+use claude --paid "your prompt"
+```
+
+## Credit costs
+
+Different models cost different amounts of swap credits:
+
+| Model | Tag | Credit cost |
+|-------|-----|-------------|
+| Ollama | `prompt` | Low |
+| Claude Haiku | `claude-haiku` | Low |
+| Claude Sonnet | `claude-sonnet` | Medium |
+| Claude Opus | `claude-opus` | High |
+| Codex | `codex` | Medium |
+
+## Checking your balance
+
+```bash
+promptswap status
+```
+
+This shows your current dollar balance and swap credit count.
+
+## The swap-first principle
+
+Promptswap always tries the free path first. The flow is:
+
+1. Submit prompt with `swap: true`
+2. If swap succeeds → done, credits deducted
+3. If swap fails → fall back to paid at configured price
+4. Result delivered either way
+
+This means you can start using promptswap immediately, even without credits. You'll pay small amounts until you start earning, then everything becomes free.

@@ -1,0 +1,193 @@
+# CLI Reference
+
+## Commands
+
+### `use <model> [prompt]`
+
+Run a prompt or start an interactive REPL.
+
+```bash
+use opus "explain monads"          # one-shot prompt
+use claude                          # interactive REPL
+echo "hello" | use claude           # pipe from stdin
+use opus --new "fresh topic"        # reset conversation
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--new` | Start a new conversation (clear session history) |
+| `--seller <user>` | Target a specific seller |
+| `--tag <tag>` | Override the model tag |
+| `--paid` | Force paid mode (skip swap) |
+| `--quiet`, `-q` | Suppress status messages |
+| `--max-spend <$>` | Maximum price you're willing to pay |
+| `--price <$>` | Set price for this prompt |
+
+---
+
+### `earn <model>`
+
+Sell your capacity to the network and earn swap credits.
+
+```bash
+promptswap earn ollama              # sell Ollama capacity
+promptswap earn claude              # sell Claude capacity
+promptswap earn opus --update       # update model before starting
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--update` | Force model update before starting |
+| `--price <$>` | Set your asking price |
+| `--max-concurrent <n>` | Max simultaneous jobs (default 3) |
+| `--poll <seconds>` | Polling interval in seconds |
+
+---
+
+### `host <model>`
+
+Host a model for your own use only. No credits earned or spent.
+
+```bash
+promptswap host opus               # host your own Claude Opus
+promptswap host ollama             # host your own Ollama
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--update` | Force model update before starting |
+
+---
+
+### `proxy`
+
+Start an OpenAI-compatible HTTP proxy server.
+
+```bash
+promptswap proxy                   # default: local first, marketplace fallback
+promptswap proxy --local           # local providers only
+promptswap proxy --marketplace     # marketplace only
+promptswap proxy --port 9000       # custom port
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--port <n>` | Port number (default 8787) |
+| `--local` | Only use local providers |
+| `--marketplace` | Only use marketplace sellers |
+
+---
+
+### `connect <tool>`
+
+Configure an external tool to use promptswap.
+
+```bash
+promptswap connect cursor --local
+promptswap connect continue --local
+promptswap connect openclaw --local
+promptswap connect python
+promptswap connect curl
+```
+
+Supported tools: `cursor`, `continue`, `openclaw`, `python`, `curl`
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--local` | Use local proxy instead of marketplace |
+| `--port <n>` | Proxy port (default 8787) |
+
+---
+
+### `setup`
+
+One-time setup. Creates account, installs Claude Code skill, rate-limit hook, and shell aliases.
+
+```bash
+promptswap setup
+```
+
+---
+
+### `status`
+
+Show your balance, swap credits, and active jobs.
+
+```bash
+promptswap status
+```
+
+---
+
+### `list`
+
+Browse available sellers on the marketplace.
+
+```bash
+promptswap list                    # list sellers for default tag
+promptswap list --tag claude-opus  # list sellers for a specific tag
+```
+
+---
+
+### `config [key] [value]`
+
+View or set configuration.
+
+```bash
+promptswap config                  # show all
+promptswap config server           # show one key
+promptswap config price_cents 10   # set a value
+```
+
+---
+
+### `start [command]`
+
+Start a command as a background daemon.
+
+```bash
+promptswap start earn ollama       # earn in background
+promptswap start proxy             # proxy in background
+```
+
+---
+
+### `stop`
+
+Stop the running daemon.
+
+```bash
+promptswap stop
+```
+
+---
+
+### `logs [lines]`
+
+View daemon logs.
+
+```bash
+promptswap logs                    # last 50 lines
+promptswap logs 100                # last 100 lines
+```
+
+## Models
+
+| Name | Tag | Description |
+|------|-----|-------------|
+| `ollama` | `prompt` | Local Ollama (free, auto-installs qwen2.5:7b) |
+| `claude` | `claude-sonnet` | Claude Sonnet via marketplace |
+| `opus` | `claude-opus` | Claude Opus via marketplace |
+| `haiku` | `claude-haiku` | Claude Haiku via marketplace |
+| `codex` | `codex` | Codex via marketplace |

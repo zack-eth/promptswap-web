@@ -1,0 +1,48 @@
+# Daemon Mode
+
+Run promptswap commands in the background as a daemon.
+
+## Starting a daemon
+
+```bash
+promptswap start earn ollama        # earn credits in background
+promptswap start proxy              # proxy in background
+promptswap start earn opus          # sell Claude in background
+```
+
+If no command is specified, `start` defaults to `share`:
+
+```bash
+promptswap start                    # same as: promptswap start share
+```
+
+## Checking status
+
+```bash
+promptswap status
+```
+
+Shows your balance, swap credits, daemon status, and any active jobs.
+
+## Viewing logs
+
+```bash
+promptswap logs                     # last 50 lines
+promptswap logs 200                 # last 200 lines
+```
+
+Logs are stored at `~/.promptswap/daemon.log`.
+
+## Stopping the daemon
+
+```bash
+promptswap stop
+```
+
+Sends a graceful shutdown signal. The daemon removes its service offerings before exiting and prints a session summary (jobs completed, credits earned).
+
+## How it works
+
+The daemon uses `child_process.spawn()` with `detached: true` to fork a background process. The PID is stored at `~/.promptswap/daemon.pid` and stdout/stderr are redirected to the log file.
+
+Stale PID files (from crashed processes) are automatically detected and cleaned up.

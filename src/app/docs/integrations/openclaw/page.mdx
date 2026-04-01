@@ -1,0 +1,29 @@
+# OpenClaw
+
+Connect OpenClaw to promptswap.
+
+## Quick setup
+
+```bash
+promptswap connect openclaw --local
+```
+
+This edits `~/.openclaw/openclaw.json` and starts the local proxy.
+
+## What gets configured
+
+The command adds a promptswap provider with all three Claude models:
+
+- Claude Sonnet (promptswap)
+- Claude Opus (promptswap)
+- Claude Haiku (promptswap)
+
+Each model is configured with a 200K context window and 16K max output tokens.
+
+## Using the marketplace
+
+```bash
+promptswap connect openclaw
+```
+
+Connects directly to the marketplace without a local proxy.

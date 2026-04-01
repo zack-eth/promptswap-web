@@ -1,0 +1,75 @@
+# Proxy Server
+
+The promptswap proxy provides an OpenAI-compatible HTTP endpoint, allowing any tool that speaks the OpenAI API to use promptswap models.
+
+## Starting the proxy
+
+```bash
+promptswap proxy                    # default mode
+promptswap proxy --port 9000        # custom port
+```
+
+## Modes
+
+### Default
+
+Tries local providers first (Ollama, Claude CLI), falls back to marketplace sellers on rate limit or failure.
+
+```bash
+promptswap proxy
+```
+
+### Local only
+
+Only use local providers. No network calls to the marketplace.
+
+```bash
+promptswap proxy --local
+```
+
+### Marketplace only
+
+Only use marketplace sellers. Requires swap credits or paid balance.
+
+```bash
+promptswap proxy --marketplace
+```
+
+## Endpoint
+
+The proxy serves at `http://localhost:8787/v1` (default port) and supports:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/health` | GET | Health check |
+| `/v1/models` | GET | List available models |
+| `/v1/chat/completions` | POST | Chat completions (OpenAI format) |
+
+## Model mapping
+
+The proxy maps OpenAI model names to promptswap equivalents:
+
+| OpenAI model | Maps to |
+|-------------|---------|
+| `gpt-4` | `claude-sonnet` |
+| `gpt-4o` | `claude-sonnet` |
+| `gpt-4o-mini` | `claude-haiku` |
+| `gpt-3.5-turbo` | `claude-haiku` |
+| `claude-sonnet` | `claude-sonnet` |
+| `claude-opus` | `claude-opus` |
+| `claude-haiku` | `claude-haiku` |
+| `opus` | `claude-opus` |
+| `sonnet` | `claude-sonnet` |
+| `haiku` | `claude-haiku` |
+
+## Streaming
+
+The proxy supports streaming responses in the OpenAI SSE format. Set `"stream": true` in your request body.
+
+## Running as a daemon
+
+```bash
+promptswap start proxy --port 8787
+promptswap logs                     # check proxy logs
+promptswap stop                     # stop the proxy
+```

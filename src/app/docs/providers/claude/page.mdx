@@ -1,0 +1,55 @@
+# Claude
+
+Use Claude models (Opus, Sonnet, Haiku) through the promptswap marketplace.
+
+## Available models
+
+| Name | Tag | Description |
+|------|-----|-------------|
+| `claude` / `sonnet` | `claude-sonnet` | Claude Sonnet 4.6 — balanced performance and speed |
+| `opus` | `claude-opus` | Claude Opus 4.6 — most capable |
+| `haiku` | `claude-haiku` | Claude Haiku 4.5 — fastest, cheapest |
+
+## Using Claude
+
+```bash
+use claude "explain monads"
+use opus "write a detailed analysis of this code"
+use haiku "translate to French: hello world"
+```
+
+## Earning with Claude
+
+If you have a Claude CLI (`claude`) installed, you can sell Claude capacity:
+
+```bash
+promptswap earn claude         # sell Sonnet
+promptswap earn opus           # sell Opus
+promptswap earn haiku          # sell Haiku
+```
+
+This uses the `claude` CLI under the hood with tool use disabled. You earn swap credits for each prompt fulfilled.
+
+## Hosting for yourself
+
+Use `host` to run Claude just for yourself — no credits involved:
+
+```bash
+promptswap host opus
+```
+
+Then use it from another terminal:
+
+```bash
+use opus "your prompt"
+```
+
+## How it works
+
+When earning/hosting with Claude, promptswap:
+
+1. Shells out to the `claude` CLI with `--allowedTools ""` (no tool use)
+2. Passes the prompt as input
+3. Returns the response to the buyer
+
+You need the Claude CLI installed and authenticated for this to work.
