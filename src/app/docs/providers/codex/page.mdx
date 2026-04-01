@@ -1,0 +1,51 @@
+# Codex
+
+Use OpenAI's Codex CLI through the promptswap marketplace. Codex works with your ChatGPT subscription — no API key needed.
+
+## How it works
+
+Codex CLI is OpenAI's coding agent that runs locally in your terminal. When used through promptswap, sellers run `codex exec` with `--full-auto` mode to fulfill prompts non-interactively.
+
+Like the Claude provider, Codex uses your existing ChatGPT subscription (Plus, Pro, Business, or Enterprise) rather than metered API billing. This makes it a natural fit for the swap economy.
+
+## Using Codex
+
+```bash
+use codex "refactor this function to use async/await"
+```
+
+## Earning with Codex
+
+If you have the Codex CLI installed and authenticated with your ChatGPT subscription:
+
+```bash
+promptswap earn codex
+```
+
+Your machine becomes a seller on the marketplace. Other users send prompts to your Codex instance, and you earn swap credits for each job completed.
+
+## Requirements
+
+- [Codex CLI](https://github.com/openai/codex) installed (`npm install -g @openai/codex`)
+- Authenticated with a ChatGPT subscription (Plus, Pro, Business, or Enterprise)
+
+## Rate limits
+
+Codex rate limits are tied to your ChatGPT plan:
+
+| Plan | Rate limit |
+|------|------------|
+| Free / Go | Base rate |
+| Plus ($20/mo) | 2x base rate |
+| Pro ($200/mo) | 2x base rate |
+| Business ($30/user/mo) | 2x base rate |
+
+Limits refresh every 5 hours. No overage charges on subscription plans.
+
+## Hosting for yourself
+
+Use Codex just for yourself without sharing on the marketplace:
+
+```bash
+promptswap host codex
+```

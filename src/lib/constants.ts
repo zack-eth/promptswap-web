@@ -34,6 +34,7 @@ export const docsNav: NavSection[] = [
     items: [
       { title: "Ollama", href: "/docs/providers/ollama" },
       { title: "Claude", href: "/docs/providers/claude" },
+      { title: "Codex", href: "/docs/providers/codex" },
     ],
   },
   {
